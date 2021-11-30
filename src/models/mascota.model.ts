@@ -1,27 +1,17 @@
 import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {Cliente} from './cliente.model';
-import {Mascota} from './mascota.model';
 import {Empleado} from './empleado.model';
+import {VisitaPyp} from './visita-pyp.model';
+import {Plan} from './plan.model';
 
 @model()
-export class SolicitudAfiliacion extends Entity {
+export class Mascota extends Entity {
   @property({
     type: 'string',
     id: true,
     generated: true,
   })
-  idSolicitud?: string;
-
-  @property({
-    type: 'string',
-  })
-  idEmpleado?: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  idMascota: string;
+  id?: string;
 
   @property({
     type: 'string',
@@ -33,49 +23,31 @@ export class SolicitudAfiliacion extends Entity {
     type: 'string',
     required: true,
   })
+  idEmpleado: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  idPlan: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
   nombre: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  apellidos: string;
+  estadoAfiliacion: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  sexo: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  ciudad: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  correo: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  telefono: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  direccion: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  nombreMascota: string;
+  motivoInactivo: string;
 
   @property({
     type: 'string',
@@ -96,39 +68,73 @@ export class SolicitudAfiliacion extends Entity {
   color: string;
 
   @property({
+    type: 'string',
+    required: true,
+  })
+  sexo: string;
+
+  @property({
     type: 'date',
     required: true,
   })
-  fechaNacimiento: string;
+  fechaNac: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  fotoMascota: string;
+  seniales: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  Estado: string;
+  alimento: string;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  peso: number;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  enfermedades: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  obsEnfPre: string;
+
+  @property({
+    type: 'string',
+  })
+  foto?: string;
 
   @belongsTo(() => Cliente)
   clienteId: string;
 
-  @hasMany(() => Mascota)
-  mascotas: Mascota[];
+  @hasMany(() => Empleado, {through: {model: () => VisitaPyp}})
+  empleados: Empleado[];
 
-  @belongsTo(() => Empleado)
-  empleadoId: string;
+  @hasMany(() => Plan)
+  plans: Plan[];
 
-  constructor(data?: Partial<SolicitudAfiliacion>) {
+  @property({
+    type: 'string',
+  })
+  solicitudAfiliacionId?: string;
+
+  constructor(data?: Partial<Mascota>) {
     super(data);
   }
 }
 
-export interface SolicitudAfiliacionRelations {
+export interface MascotaRelations {
   // describe navigational properties here
 }
 
-export type SolicitudAfiliacionWithRelations = SolicitudAfiliacion & SolicitudAfiliacionRelations;
+export type MascotaWithRelations = Mascota & MascotaRelations;

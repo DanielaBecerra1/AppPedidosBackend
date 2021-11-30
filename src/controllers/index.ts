@@ -4,3 +4,6 @@ export * from './persona-pedido.controller';
 export * from './pedido-producto.controller';
 export * from './producto.controller';
 export * from './pedido.controller';
+export * from './solicitud-afiliacion-cliente.controller';
+export * from './solicitud-afiliacion-mascota.controller';
+export * from './solicitud-afiliacion-empleado.controller';
